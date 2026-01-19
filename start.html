@@ -8,34 +8,111 @@
 </head>
 <body>
 
-<div class="container">
-  <h1>VERTRAULICH</h1>
-
-  <p>
-    Du wurdest ausgewählt.
-  </p>
-
-  <p>
-    Diese Mission ist nicht öffentlich.
-  </p>
-
-  <p>
-    Bist du bereit, fortzufahren?
-  </p>
-
-  <button id="startMission">MISSION STARTEN</button>
-</div>
-
 <audio id="ambientSound" loop>
   <source src="audio/ambient.mp3" type="audio/mpeg">
 </audio>
 
+<div class="container">
+
+    <h1>OPERATION TABAKFABRIK</h1>
+
+    <p>
+    Schön, dass du endlich auftauchst.
+    </p>
+
+    <p>
+    Dein gesamtes Team wartet bereits auf dich.
+    Die Zeit läuft.
+    </p>
+
+    <hr>
+
+    <p>
+    Vor wenigen Tagen sind Hinweise auf eine
+    <strong>illegale Veranstaltung</strong> aufgetaucht.
+    </p>
+
+    <p>
+    Kein offizieller Veranstalter.
+    Keine Werbung.
+    Kein öffentliches Line-up.
+    </p>
+
+    <p>
+    Nur Gerüchte.
+    </p>
+
+    <hr>
+
+    <p>
+    <strong>Ort:</strong> Tabakfabrik<br>
+    <strong>Status:</strong> Abgeschottet<br>
+    <strong>Zugang:</strong> Nur mit Einladung
+    </p>
+
+    <p>
+    Du wurdest ausgewählt, diese Party zu
+    <strong>infiltrieren</strong>.
+    </p>
+
+    <hr>
+
+    <p>
+    Unsere Aufklärung war begrenzt.
+    </p>
+
+    <p>
+    Weder Zeitpunkt noch exakter Zugangspunkt
+    konnten eindeutig verifiziert werden.
+    </p>
+
+    <p>
+    Ohne formelle Einladung kommst du dort
+    ohnehin nicht rein.
+    </p>
+
+    <hr>
+
+    <p>
+    Uns ist es gelungen, <strong>einen Teil der Einladung
+    abzufangen</strong>.
+    </p>
+
+    <p>
+    Alles Weitere liegt ab jetzt bei dir.
+    </p>
+
+    <p>
+    Ab diesem Punkt bist du auf dich allein gestellt.
+    </p>
+
+    <hr>
+
+    <img src="img/qr_part1.png" alt="QR Code Fragment" class="qr">
+
+    <p class="small">
+    Fragment 1/4<br>
+    Unvollständig, aber essenziell.
+    </p>
+
+    <hr>
+
+    <p>
+    Den nächsten Hinweis konnten selbst unsere besten Kryptographen nicht entschlüsseln, vielleicht hast du ja mehr Erfolg.
+    </p>
+
+    <a href="riddle1.html">
+    <button>MISSION FORTSETZEN</button>
+    </a>
+
+  </div>
+
 <script>
-document.getElementById("startMission").addEventListener("click", () => {
+window.addEventListener("load", () => {
   const sound = document.getElementById("ambientSound");
   sound.volume = 0.4;
-  sound.play().then(() => {
-    window.location.href = "index.html";
+  sound.play().catch(() => {
+    console.log("Autoplay blockiert – aber Klick war vorher ok.");
   });
 });
 </script>
