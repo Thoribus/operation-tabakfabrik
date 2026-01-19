@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Letzte Hürde</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .hangman {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .word {
+      font-size: 1.5em;
+      letter-spacing: 0.15em;
+      margin: 20px 0;
+      word-break: break-all;
+    }
+
+    .letters button {
+      margin: 3px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .status {
+      margin-top: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>LETZTE HÜRDE</h1>
+
+    <p>
+      Ahhh, du hast es also geschafft.
+    </p>
+
+    <p>
+      Den letzten Teil der Einladung erhältst du,
+      wenn du mir persönlich schreibst.
+    </p>
+
+    <p>
+      Aber was ist da die richtige Adresse?
+    </p>
+
+    <hr>
+
+    <div class="hangman">
+        <pre id="gallow">
+       +---+
+       |   |
+           |
+           |
+           |
+           |
+      =========
+        </pre>
+      
+        <div class="word" id="wordDisplay"></div>
+      
+        <div class="letters" id="letters"></div>
+      
+        <div class="status" id="status"></div>
+      
+        <div id="success" class="hidden">
+          <hr>
+          <p>Kontaktadresse rekonstruiert.</p>
+          <p><strong>Mission erfüllt.</strong></p>
+        </div>
+      </div>
+      
+
+  </div>
+
+  <script>
+    const solution = "umwandlung.in.der.uckermark@gmail.com";
+    const visibleTail = "@gmail.com";
+  
+    let guessed = [];
+    let errors = 0;
+    const maxErrors = 8;
+  
+    const stages = [
+  ` +---+
+   |   |
+       |
+       |
+       |
+       |
+  =========`,
+  ` +---+
+   |   |
+   O   |
+       |
+       |
+       |
+  =========`,
+  ` +---+
+   |   |
+   O   |
+   |   |
+       |
+       |
+  =========`,
+  ` +---+
+   |   |
+   O   |
+  /|   |
+       |
+       |
+  =========`,
+  ` +---+
+   |   |
+   O   |
+  /|\\  |
+       |
+       |
+  =========`,
+  ` +---+
+   |   |
+   O   |
+  /|\\  |
+  /    |
+       |
+  =========`,
+  ` +---+
+   |   |
+   O   |
+  /|\\  |
+  / \\  |
+       |
+  =========`,
+  ` +---+
+   |   |
+  [O]  |
+  /|\\  |
+  / \\  |
+       |
+  =========`,
+  ` +---+
+   |   |
+  [X]  |
+  /|\\  |
+  / \\  |
+       |
+  =========`
+    ];
+  
+    const lettersContainer = document.getElementById("letters");
+    const wordDisplay = document.getElementById("wordDisplay");
+    const status = document.getElementById("status");
+    const success = document.getElementById("success");
+    const gallow = document.getElementById("gallow");
+  
+    function renderWord() {
+      let output = "";
+      for (let char of solution) {
+        if (char === "@") {
+          output += visibleTail;
+          break;
+        }
+  
+        if (char === ".") {
+          output += ".";
+        } else if (guessed.includes(char)) {
+          output += char;
+        } else {
+          output += "_";
+        }
+      }
+      wordDisplay.textContent = output;
+    }
+  
+    function renderLetters() {
+      const alphabet = "abcdefghijklmnopqrstuvwxyz";
+      lettersContainer.innerHTML = "";
+  
+      for (let l of alphabet) {
+        const btn = document.createElement("button");
+        btn.textContent = l;
+        btn.disabled = guessed.includes(l);
+        btn.onclick = () => guess(l);
+        lettersContainer.appendChild(btn);
+      }
+    }
+  
+    function guess(letter) {
+      guessed.push(letter);
+  
+      if (!solution.includes(letter)) {
+        errors++;
+        gallow.textContent = stages[errors];
+      }
+  
+      renderWord();
+      renderLetters();
+      updateStatus();
+      checkWin();
+    }
+  
+    function updateStatus() {
+      status.textContent = `Fehlversuche: ${errors} / ${maxErrors}`;
+      if (errors >= maxErrors) {
+        status.textContent = "Mission fehlgeschlagen. Seite neu laden, um es erneut zu versuchen.";
+        lettersContainer.innerHTML = "";
+      }
+    }
+  
+    function checkWin() {
+      let won = true;
+      for (let char of solution) {
+        if (char === "@") break;
+        if (char !== "." && !guessed.includes(char)) {
+          won = false;
+        }
+      }
+  
+      if (won) {
+        success.classList.remove("hidden");
+        lettersContainer.innerHTML = "";
+      }
+    }
+  
+    renderWord();
+    renderLetters();
+    updateStatus();
+  </script>
+  
+
+</body>
+</html>
