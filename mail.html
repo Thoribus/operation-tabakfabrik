@@ -66,7 +66,13 @@
       
         <div class="word" id="wordDisplay"></div>
       
-        <div class="letters" id="letters"></div>
+        <input
+          type="text"
+          id="letterInput"
+          maxlength="1"
+          placeholder="Buchstabe eingeben"
+          style="text-align:center; font-size:1.2em; padding:6px;"
+        >
       
         <div class="status" id="status"></div>
       
@@ -75,13 +81,17 @@
           <p>Kontaktadresse rekonstruiert.</p>
           <p><strong>Mission erfüllt.</strong></p>
         </div>
+      
+        <audio id="errorSound" src="audio/error.mp3"></audio>
+        <audio id="successSound" src="audio/success.mp3"></audio>
       </div>
+      
       
 
   </div>
 
   <script>
-    const solution = "umwandlung.in.der.uckermark@gmail.com";
+    const solution = "umwandlung.in.der.uckermark@gmail.com".toLowerCase();
     const visibleTail = "@gmail.com";
   
     let guessed = [];
@@ -154,11 +164,13 @@
   =========`
     ];
   
-    const lettersContainer = document.getElementById("letters");
     const wordDisplay = document.getElementById("wordDisplay");
     const status = document.getElementById("status");
     const success = document.getElementById("success");
     const gallow = document.getElementById("gallow");
+    const input = document.getElementById("letterInput");
+    const errorSound = document.getElementById("errorSound");
+    const successSound = document.getElementById("successSound");
   
     function renderWord() {
       let output = "";
@@ -179,29 +191,26 @@
       wordDisplay.textContent = output;
     }
   
-    function renderLetters() {
-      const alphabet = "abcdefghijklmnopqrstuvwxyz";
-      lettersContainer.innerHTML = "";
+    function handleInput() {
+      const raw = input.value.toLowerCase();
+      input.value = "";
   
-      for (let l of alphabet) {
-        const btn = document.createElement("button");
-        btn.textContent = l;
-        btn.disabled = guessed.includes(l);
-        btn.onclick = () => guess(l);
-        lettersContainer.appendChild(btn);
-      }
-    }
+      if (!raw.match(/[a-z]/)) return;
+      if (guessed.includes(raw)) return;
   
-    function guess(letter) {
-      guessed.push(letter);
+      guessed.push(raw);
   
-      if (!solution.includes(letter)) {
+      if (!solution.includes(raw)) {
         errors++;
         gallow.textContent = stages[errors];
+        errorSound.currentTime = 0;
+        errorSound.play();
+      } else {
+        successSound.currentTime = 0;
+        successSound.play();
       }
   
       renderWord();
-      renderLetters();
       updateStatus();
       checkWin();
     }
@@ -210,7 +219,7 @@
       status.textContent = `Fehlversuche: ${errors} / ${maxErrors}`;
       if (errors >= maxErrors) {
         status.textContent = "Mission fehlgeschlagen. Seite neu laden, um es erneut zu versuchen.";
-        lettersContainer.innerHTML = "";
+        input.disabled = true;
       }
     }
   
@@ -225,14 +234,16 @@
   
       if (won) {
         success.classList.remove("hidden");
-        lettersContainer.innerHTML = "";
+        input.disabled = true;
       }
     }
   
+    input.addEventListener("input", handleInput);
+  
     renderWord();
-    renderLetters();
     updateStatus();
   </script>
+  
   
 
 </body>
