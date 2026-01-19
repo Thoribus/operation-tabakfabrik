@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Verschlüsselter Hinweis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <h1>VERSCHLÜSSELTE INFORMATION</h1>
+
+    <p>
+      Nicht jede Information liegt offen.<br>
+      Manche muss man verschieben, um sie lesen zu können.
+    </p>
+
+    <hr>
+
+    <p><strong>Hinweis:</strong></p>
+
+    <p style="font-family: monospace; font-size: 1.1rem;">
+      19.11. → 3 SCHRITTE
+    </p>
+
+    <p class="small">
+      Ein Klassiker. Drei Schritte zurück.
+    </p>
+
+    <hr>
+
+    <p>
+      Wann habe ich Geburtstag?
+    </p>
+
+    <input type="text" id="answer" placeholder="TT.MM">
+
+    <button onclick="checkAnswer()">Antwort prüfen</button>
+
+    <div id="success" class="hidden">
+      <hr>
+      <p>Entschlüsselung erfolgreich.</p>
+      <a href="access.html">
+        <button>Weiter</button>
+      </a>
+    </div>
+
+  </div>
+
+<script>
+function checkAnswer() {
+  const answer = document.getElementById("answer").value.trim();
+  // HIER DEIN ECHTER GEBURTSTAG
+  if (answer === "05.09") {
+    document.getElementById("success").classList.remove("hidden");
+  } else {
+    alert("Falsch. Versuche es erneut.");
+  }
+}
+</script>
+
+</body>
+</html>
