@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <audio id="ambientSound" loop>
+    <source src="audio/ambient.mp3" type="audio/mpeg">
+  </audio>
+
   <div class="container">
 
     <h1>VERSCHLÜSSELTE INFORMATION</h1>
@@ -69,9 +73,14 @@
         alert("Das passt noch nicht. Versuch es erneut.");
       }
     }
-    </script>
+  window.addEventListener("load", () => {
+    const sound = document.getElementById("ambientSound");
+    sound.volume = 0.4;
+    sound.play().catch(() => {
+      console.log("Autoplay blockiert – aber Klick war vorher ok.");
+    });
+  });
+  </script>    
     
-    
-
 </body>
 </html>
