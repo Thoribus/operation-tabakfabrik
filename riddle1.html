@@ -18,20 +18,8 @@
 
     <hr>
 
-    <p><strong>Hinweis:</strong></p>
-
-    <p style="font-family: monospace; font-size: 1.1rem;">
-      19.11. → 3 SCHRITTE
-    </p>
-
-    <p class="small">
-      Ein Klassiker. Drei Schritte zurück.
-    </p>
-
-    <hr>
-
     <p>
-      Wann habe ich Geburtstag?
+        Zdqq kdeh lfk Jhexuwvwdj?
     </p>
 
     <input type="text" id="answer" placeholder="TT.MM">
@@ -48,17 +36,37 @@
 
   </div>
 
-<script>
-function checkAnswer() {
-  const answer = document.getElementById("answer").value.trim();
-  // HIER DEIN ECHTER GEBURTSTAG
-  if (answer === "05.09") {
-    document.getElementById("success").classList.remove("hidden");
-  } else {
-    alert("Falsch. Versuche es erneut.");
-  }
-}
-</script>
+  <script>
+    function normalizeDate(input) {
+      return input
+        .replace(/\s+/g, "")
+        .replace(/\//g, ".")
+        .replace(/-/g, ".");
+    }
+    
+    function checkAnswer() {
+      const raw = document.getElementById("answer").value.trim();
+      const answer = normalizeDate(raw);
+    
+      const validAnswers = [
+        "05.09.",
+        "05.09",
+        "5.9",
+        "5.9.",
+        "05.09.2001",
+        "5.9.2001",
+        "2001.09.05",
+        "2001.9.5"
+      ];
+    
+      if (validAnswers.includes(answer)) {
+        document.getElementById("success").classList.remove("hidden");
+      } else {
+        alert("Das passt noch nicht. Versuch es erneut.");
+      }
+    }
+    </script>
+    
 
 </body>
 </html>
