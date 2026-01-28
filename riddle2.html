@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Gesicherter Zugang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <h1>GESICHERTER KANAL</h1>
+
+    <p>
+      Du hast bewiesen, dass du aufmerksam bist.
+    </p>
+
+    <p>
+      Doch nicht jede:r kommt so weit.
+      Der nächste Teil der Einladung ist geschützt.
+    </p>
+
+    <p>
+      Nur wer den richtigen Code kennt,
+      erhält Zugriff auf das nächste Fragment.
+    </p>
+
+    <hr>
+
+    <input type="text" id="codeInput" placeholder="Zugangscode eingeben">
+    <button onclick="checkCode()">Code prüfen</button>
+
+    <div id="success" class="hidden">
+      <hr>
+
+      <p>Code akzeptiert.</p>
+
+      <img src="img/qr_part3.png" alt="QR Code Fragment" class="qr">
+
+      <p class="small">
+        Fragment 3/4<br>
+        Die Einladung nimmt Form an.
+      </p>
+
+      <a href="mail.html">
+        <button>LETZTE HÜRDE</button>
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    function checkCode() {
+      const value = document.getElementById("codeInput").value.trim();
+
+      if (value === "67") {
+        document.getElementById("success").classList.remove("hidden");
+      } else {
+        alert("Falscher Code. Versuch es erneut.");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -17,24 +17,34 @@
 
     <hr>
 
-    <img src="img/qr_part2.png" alt="QR Code Teil 2" class="qr">
-
-    <p class="small">
-      Fragment 2/4
-    </p>
-
-    <hr>
-
     <p>
       Die nächsten Informationen erhältst du direkt von mir.
     </p>
 
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" onclick="revealMessage()">
       <button>Nachricht der Gastgeberin ansehen</button>
     </a>
 
-    <hr>
+    <div id="afterVideo" class="hidden">
+      <hr>
+      <p>
+        Ha, dachtest du wirklich, ich offenbare hier mein wahres Gesicht?
+        Nein, das siehst du erst später.
+      </p>
+      <p>
+        Na komm schon, dein nächstes Rätsel wartet auf dich.
+      </p>
+      <a href="riddle2.html">
+        <button>Weiter</button>
+      </a>
+    </div>
 
   </div>
+
+  <script>
+    function revealMessage() {
+      document.getElementById("afterVideo").classList.remove("hidden");
+    }
+  </script>
 </body>
 </html>
