@@ -251,6 +251,14 @@
   
     renderWord();
     updateStatus();
+
+    window.addEventListener("load", () => {
+      const sound = document.getElementById("ambientSound");
+      sound.volume = 0.4;
+      sound.play().catch(() => {
+        console.log("Autoplay blockiert – aber Klick war vorher ok.");
+      });
+    });
   </script>
   
   

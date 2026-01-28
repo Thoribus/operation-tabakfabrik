@@ -17,11 +17,11 @@
 
     <p>
       Doch nicht jede:r kommt so weit.
-      Der nächste Teil der Einladung ist geschützt.
+      Der nächste Teil der Einladung ist versteckt.
     </p>
 
     <p>
-      Nur wer den richtigen Code kennt,
+      Nur wer den richtigen Code findet,
       erhält Zugriff auf das nächste Fragment.
     </p>
 
@@ -47,9 +47,20 @@
       </a>
     </div>
 
+    <audio id="hintSound">
+        <source src="audio/tipp2.mp3" type="audio/mpeg">
+    </audio>
+
   </div>
 
   <script>
+
+    function playHint() {
+      const hint = document.getElementById("hintSound");
+      hint.currentTime = 0;
+      hint.play();
+    }
+
     function checkCode() {
       const value = document.getElementById("codeInput").value.trim();
 
@@ -59,6 +70,14 @@
         alert("Falscher Code. Versuch es erneut.");
       }
     }
+
+    window.addEventListener("load", () => {
+      const sound = document.getElementById("ambientSound");
+      sound.volume = 0.4;
+      sound.play().catch(() => {
+        console.log("Autoplay blockiert – aber Klick war vorher ok.");
+      });
+    });
   </script>
 </body>
 </html>
